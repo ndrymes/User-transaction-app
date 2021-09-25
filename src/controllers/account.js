@@ -1,9 +1,20 @@
 const { errorResponseHelper, handleSucess } = require('../helpers/http-response');
 const { validators } = require('../validators/account');
-const { bankServices } = require('../services');
+const { accountServices } = require('../services');
+const { allowedValues } = require('../constants/account');
 
 exports.getAccountBalance = (req, res) => {
-  bankServices.getAccountBalance(req.params.accountId, (error, data) => {
+  accountServices.getAccountBalance(req.params.accountId, (error, data) => {
+    if (error) {
+      return errorResponseHelper(res, error);
+    }
+    return handleSucess(res, data);
+  });
+};
+
+exports.getAccountBalance = (req, res) => {
+  const { accountId } = req.params;
+  accountServices.getAccountBalance(accountId, (error, data) => {
     if (error) {
       return errorResponseHelper(res, error);
     }
@@ -12,8 +23,8 @@ exports.getAccountBalance = (req, res) => {
 };
 
 const creditUserAccount = (res, accountId, amount) => {
-  // get current acoount balance
-  let accountBalance = bankServices.getAccountBalance(accountId, (error, data) => {
+  // get current account balance
+  let accountBalance = accountServices.getAccountBalance(accountId, (error, data) => {
     if (error) {
       return errorResponseHelper(res, error);
     }
@@ -21,43 +32,61 @@ const creditUserAccount = (res, accountId, amount) => {
   });
   accountBalance += amount;
   // Update users account
-  const account = bankServices.updateAccount({ accountId, accountBalance },
+  accountServices.updateAccount({ accountId, accountBalance },
     (error, data) => {
       if (error) {
         return errorResponseHelper(res, error);
       }
+      // save history of transactions
+      accountServices.saveTransaction({ ...data, amount, type: allowedValues.credit });
       return handleSucess(res, data);
     });
-  //   saveTransaction({ ...account, amount, type: 'credit' });
-
-  return { ...account };
 };
 
 const debitUserAccount = (res, accountId, amount) => {
   // get current account balance
-  let accountBalance = bankServices.getAccountBalance(accountId, (error, data) => {
+  let accountBalance = accountServices.getAccountBalance(accountId, (error, data) => {
     if (error) {
       return errorResponseHelper(res, error);
     }
     return data;
   });
-  // check if the account balance is less than the amount to withdraw
+    // check if the account balance is less than the amount to withdraw
   if (accountBalance < amount) {
     return errorResponseHelper(res, 'insufficent balance');
   }
   accountBalance -= amount;
 
   // Update users account
-  const account = bankServices.updateAccount({ accountId, accountBalance },
+  accountServices.updateAccount({ accountId, accountBalance },
     (error, data) => {
       if (error) {
         return errorResponseHelper(res, error);
       }
+      // save history of transactions
+      accountServices.saveTransaction({ ...data, amount, type: allowedValues.debit });
       return handleSucess(res, data);
     });
-    //   saveTransaction({ ...account, amount, type: 'credit' });
+};
 
-  return { ...account };
+exports.getAccountBalance = (req, res) => {
+  const { accountId } = req.params;
+  accountServices.getAccountBalance(accountId, (error, data) => {
+    if (error) {
+      return errorResponseHelper(res, error);
+    }
+    return handleSucess(res, data);
+  });
+};
+
+exports.getTransactionHistory = (req, res) => {
+  const { accountId } = req.params;
+  accountServices.getTransactionHistory(accountId, (error, data) => {
+    if (error) {
+      return errorResponseHelper(res, error);
+    }
+    return handleSucess(res, data);
+  });
 };
 
 exports.initiateTransaction = (req, res) => {

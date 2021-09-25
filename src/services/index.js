@@ -1,5 +1,5 @@
-const { bankServices } = require('./account');
+const { accountServices } = require('./account');
 
 module.exports = {
-  bankServices,
+  accountServices,
 };
