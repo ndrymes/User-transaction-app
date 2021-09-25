@@ -18,7 +18,6 @@ exports.handleError = (message, statusCode) => {
 };
 
 exports.errorResponseHelper = (res, err) => {
-  // console.log({res});
   if (err.name === 'ValidationError') {
     const message = 'VALIDATION_ERROR';
     const resp = responseHandler(HTTPStatus.BadRequest, message, res, true, []);
@@ -36,7 +35,6 @@ exports.errorResponseHelper = (res, err) => {
 };
 
 exports.handleSucess = (res, data) => {
-  // console.log({res});
   logger.info('ride data gotten successfully');
   const response = responseHandler(
     HTTPStatus.OK,
