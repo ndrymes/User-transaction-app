@@ -27,7 +27,7 @@ exports.errorResponseHelper = (res, err) => {
   logger.error('Error from processing account', err);
   const resp = responseHandler(
     HTTPStatus.INTERNAL_SERVER_ERROR,
-    'Internal server error',
+    err,
     res,
     true,
     [],
