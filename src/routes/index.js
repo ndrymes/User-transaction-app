@@ -1,5 +1,5 @@
 const bodyParser = require('body-parser');
-const { getAccountBalance } = require('../controllers/account');
+const { getAccountBalance, initiateTransaction } = require('../controllers/account');
 
 module.exports.setup = function setup(server) {
   // parse application/x-www-form-urlencoded
@@ -16,7 +16,13 @@ module.exports.setup = function setup(server) {
 
   server.get({
     path: '/account/balance/:accountId',
-    name: 'Get vehicle data',
+    name: 'Get account balance',
     version: '1.0.0',
   }, (req, res) => getAccountBalance(req, res));
+
+  server.post({
+    path: '/account/update/:accountId',
+    name: 'Get vehicle data',
+    version: '1.0.0',
+  }, (req, res) => initiateTransaction(req, res));
 };
