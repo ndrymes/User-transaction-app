@@ -1,9 +1,9 @@
-const allowedType = ['credit', 'debit'];
-const allowedValues = {
-  credit: 'credit',
-  debit: 'debit',
+const transactionType = {
+  credit: "credit",
+  debit: "debit",
 };
+const transactionTypeValues = Object.values(transactionType);
 module.exports = {
-  allowedType,
-  allowedValues,
+  transactionType,
+  transactionTypeValues,
 };
