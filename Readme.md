@@ -19,7 +19,7 @@ docker-compose up
 ```
 # Demo
 
-The app is hosted on heroku. The base url is <a href="https://immense-stream-85373.herokuapp.com/">https://immense-stream-85373.herokuapp.com/</a>.
+The app is hosted on heroku. The base url is <a href="https://boiling-ravine-00621.herokuapp.com/">https://boiling-ravine-00621.herokuapp.com/</a>.
 The default endpoint is an health check endpoint that returns a success response.
 
 ## API
