@@ -10,7 +10,7 @@ exports.getAccountBalance = (req, res) => {
   const { accountId } = req.params;
   accountServices.getAccountBalance(accountId, (error, data) => {
     if (error) return handleErrorResponse(res, error);
-    return handleSucessResponse(res, data);
+    return handleSucessResponse(res, { accountBalance: data });
   });
 };
 

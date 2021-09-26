@@ -23,7 +23,7 @@ describe("Payment App Integration Test", () => {
           if (err) done(err);
           expect(res.body.error).toBe(false);
           expect(res.body.message).toBe("Data gotten successfully");
-          expect(res.body.data).toBe(57900);
+          expect(res.body.data).toStrictEqual({"accountBalance": 57900});
           done();
         });
     });
