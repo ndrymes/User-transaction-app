@@ -30,7 +30,7 @@ const getAccountDetails = (accountId, callback) => {
 const getTransactionHistory = (accountId, callback) => {
   try {
     if (lock.isBusy(accountId)) handleError("Service Unavailable", 503);
-    const transactionHistoryStore = bankRepository.getTransactionHostory();
+    const transactionHistoryStore = bankRepository.getTransactionHistory();
     const transactionHistory = {
       transactionHistory: [
         ...transactionHistoryStore.filter(
@@ -55,8 +55,8 @@ const getAccountBalance = (accountId, callback) => {
   try {
     if (lock.isBusy(accountId)) handleError("Service Unavailable", 503);
     const userAccount = bankRepository.getAccount(accountId);
-    const accountBalance = userAccount.balance;
-    callback(null, accountBalance);
+    const accountBalance = userAccount !== null ? userAccount.balance : null;
+    callback(null,  accountBalance );
   } catch (error) {
     callback(error);
   }
@@ -90,7 +90,7 @@ const updateAccount = (data = {}, callback) => {
  */
 const saveTransaction = (transactionHistory) => {
   return (savedHistory =
-    bankRepository.saveTransactionHostory(transactionHistory));
+    bankRepository.saveTransactionHistory(transactionHistory));
 };
 exports.accountServices = {
   getAccountBalance,

@@ -41,7 +41,7 @@ exports.handleErrorResponse = (res, err) => {
 };
 
 exports.handleSucessResponse = (res, data) => {
-  logger.info("ride data gotten successfully");
+  logger.info("account data gotten successfully");
   const response = responseHandler(
     HTTPStatus.OK,
     "Data gotten successfully",

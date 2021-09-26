@@ -12,13 +12,13 @@ const updateAccount = (accountId, updatedBalance) => {
   return userAccount;
 };
 
-const saveTransactionHostory = (transactionHistory) => {
+const saveTransactionHistory = (transactionHistory) => {
   transactionHistoryStore.push(transactionHistory);
 };
-const getTransactionHostory = () => transactionHistoryStore;
+const getTransactionHistory = () => transactionHistoryStore;
 exports.bankRepository = {
   getAccount: (accountId) => getAccount(accountId),
-  getTransactionHostory: () => getTransactionHostory(),
+  getTransactionHistory: () => getTransactionHistory(),
   updateAccount: (accountId, updatedBalance) => updateAccount(accountId, updatedBalance),
-  saveTransactionHostory: (transactionHistory) => saveTransactionHostory(transactionHistory),
+  saveTransactionHistory: (transactionHistory) => saveTransactionHistory(transactionHistory),
 };

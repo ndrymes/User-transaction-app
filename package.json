@@ -7,7 +7,7 @@
     "test": "npx jest",
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
-    "lint": "npx eslint *.js"
+    "coverage": "npm test -- --coverage"
   },
   "author": "",
   "license": "ISC",

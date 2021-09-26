@@ -1,0 +1,16 @@
+node_modules
+build
+npm-debug.log
+.env
+.DS_Store
+.vscode
+Makefile
+*compose*.yml
+scripts
+appspec.yml
+README.md
+ttkeys*
+.gitignore
+.git
+.eslintrc.js
+# Add any directories, files, or patterns you don't want to be tracked by version control
