@@ -1,16 +1,13 @@
-const Joi = require('joi');
-const { allowedType } = require('../constants/account');
+const Joi = require("joi");
+const { transactionTypeValues } = require("../constants/account");
 
-const initiateTransaction = (data) => {
-  const schema = Joi.object({
-    type: Joi.string()
-      .required().valid(...allowedType),
-    amount: Joi.number()
-      .required(),
-  });
-  return schema.validate(data);
-};
+const initiateTransactionSchema = Joi.object({
+  type: Joi.string()
+    .required()
+    .valid(...transactionTypeValues),
+  amount: Joi.number().required(),
+});
 
-exports.validators = {
-  initiateTransaction,
+module.exports = {
+  initiateTransactionSchema,
 };

@@ -1,5 +1,5 @@
-const HTTPStatus = require('../constants/http-status');
-const logger = require('./logger');
+const HTTPStatus = require("../constants/http-status");
+const logger = require("./logger");
 
 const responseHandler = (code, message, res, error, data) => {
   res.status(code);
@@ -17,31 +17,37 @@ exports.handleError = (message, statusCode) => {
   throw error;
 };
 
-exports.errorResponseHelper = (res, err) => {
-  if (err.name === 'ValidationError') {
-    const message = 'VALIDATION_ERROR';
-    const resp = responseHandler(HTTPStatus.BadRequest, message, res, true, []);
-    return resp.res_message();
+exports.handleErrorResponse = (res, err) => {
+  if (err.name === "ValidationError") {
+    const message = "VALIDATION_ERROR";
+    const response = responseHandler(
+      HTTPStatus.BadRequest,
+      message,
+      res,
+      true,
+      []
+    );
+    return response;
   }
-  logger.error('Error from processing account', err);
-  const resp = responseHandler(
+  logger.error("Error from processing account", err);
+  const response = responseHandler(
     HTTPStatus.INTERNAL_SERVER_ERROR,
     err,
     res,
     true,
-    [],
+    []
   );
-  return resp;
+  return response;
 };
 
-exports.handleSucess = (res, data) => {
-  logger.info('ride data gotten successfully');
+exports.handleSucessResponse = (res, data) => {
+  logger.info("ride data gotten successfully");
   const response = responseHandler(
     HTTPStatus.OK,
-    'Data gotten successfully',
+    "Data gotten successfully",
     res,
     false,
-    data,
+    data
   );
   return response;
 };

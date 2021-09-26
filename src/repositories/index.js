@@ -1,4 +1,5 @@
-const {bankRepository} = require('./account')
+const { bankRepository } = require("./account");
+
 module.exports = {
-    bankRepository
+  bankRepository,
 };
